@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/dist/css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="d-inline-flex align-items-center">
+        <div class="text-white justify-content-end mr-2 font-weight-bold">Sesión iniciada como: [usuario]</div>
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#miModal">Cerrar Sesion</button>
+        <div class="modal fade" id="miModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h4>¿Está seguro de que quiere cerrar la sesión?
+                            <br>
+                            <br>
+                            No se aplicarán los cambios no guardados
+                        </h4>
+                    </div>
+                    <div class="modal-footer">
+                            <button type="button" class="btn-danger btn"><a class="text-decoration-none text-white" href="logout.php">Cerrar Sesión</a></button>
+                            <button type="button" class="btn-outline-secondary btn" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>   
+            </div>
+        </div>
+    </div>  
+    
+</body>
+<script src="../static/dist/js/bootstrap.bundle.min.js"></script>
+
+</html>
+
+
+

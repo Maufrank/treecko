@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/dist/css/bootstrap.min.css">
+    <title>Consultar Tutores</title>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary bg-success">
+        <div class="container-fluid px-4">
+          <a class="navbar-brand text-white" href="#">TREECKO</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon text-white">Menú</span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active text-white" aria-current="page" href="/alumnos/consultar">Alumnos</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Tutores
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/tutor/agregar">Agregar</a></li>
+                    <li><a class="dropdown-item" href="/tutor/consultar">Consultar</a></li>
+                  </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Directores
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/director/agregar">Agregar</a></li>
+                    <li><a class="dropdown-item" href="/director/consultar">Consultar</a></li>
+                  </ul>
+              </li>
+
+            </ul>
+            <span class="navbar-text text-white">
+              <!-- Navbar text with an inline element -->
+              <button type="submit" class="btn btn-danger">Cerrar Sesion</button>
+            </span>
+          </div>
+        </div>
+      </nav>
+
+      <!-- titulo -->
+      <div class="container-fluid my-4 d-flex justify-content-center">
+            <h2>Consultar Tutores</h2>
+      </div>
+
+      <div class="col-md-4 mx-5">
+        <label for="inputGrupo" class="form-label">Filtrar por:</label>
+        <select id="inputGrupo" class="form-select">
+          <option selected>Sin filtro</option>
+          <option>Periodo</option>
+          <option>Division</option>
+          <option>Carrera</option>
+          
+        </select>
+      </div>
+
+      <!-- Formulario de registro de tutor -->
+      <div class="container-fluid my-4 ">
+        <table class="table px-5">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellidos</th>
+                <th scope="col">Division</th>
+                <th scope="col">Carrera</th>
+                <th scope="col">Grupo</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Eliminar</th>
+
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Sergio</td>
+                <td>Montiel</td>
+                <td>TIC</td>
+                <td>DSM</td>
+                <td>C</td>
+          <td><button type="submit" class="btn btn-success">Editar</button></td>
+          <td><button type="submit" class="btn btn-danger">Eliminar</button></td>
+
+
+              </tr>
+
+            </tbody>
+          </table>
+      </div>
+
+
+    
+</body>
+<script src="../static/dist/js/bootstrap.bundle.min.js"></script>
+</html>
