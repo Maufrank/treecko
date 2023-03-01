@@ -55,44 +55,44 @@
 
       <!-- Formulario de registro de tutor -->
       <div class="container-fluid my-4 ">
-      <form class="row g-3 px-5 py-3 bg-light rounded">
+      <form class="row g-3 px-5 py-3 bg-light rounded" action="/tutor/add" method="post">
         <div class="col-md-6">
           <label for="inputNombre" class="form-label">Nombre</label>
-          <input type="text" class="form-control " id="inputNombre">
+          <input type="text" class="form-control " id="inputNombre" name="inputNombre">
         </div>
         <div class="col-md-6">
           <label for="inputApellidos" class="form-label">Apellidos</label>
-          <input type="text" class="form-control" id="inputApellidos">
+          <input type="text" class="form-control" id="inputApellidos" name="inputApellidos">
         </div>
         <div class="col-md-12">
             <label for="inputCorreo" class="form-label">Correo</label>
-            <input type="email" class="form-control" id="inputCorreo">
+            <input type="email" class="form-control" id="inputCorreo" name="inputCorreo">
           </div>
           <div class="col-md-12">
             <label for="inputUsername" class="form-label">Nombre de usuario</label>
-            <input type="text" class="form-control" id="inputUsername">
+            <input type="text" class="form-control" id="inputUsername" name="inputUsername">
           </div>
           <div class="col-md-6">
             <label for="inputPassword" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="inputPassword">
+            <input type="password" class="form-control" id="inputPassword" name="inputPassword">
           </div>
           <div class="col-md-6">
             <label for="inputRepetPassword" class="form-label">Repetir contraseña:</label>
-            <input type="password" class="form-control" id="inputRepetPassword">
+            <input type="password" class="form-control" id="inputRepetPassword" name="inputRepetPassword">
           </div>
           <div class="col-md-4">
-            <label for="inputGrupo" class="form-label">Carrera</label>
-            <select id="inputGrupo" class="form-select">
+            <label for="inputCarrera" class="form-label">Carrera</label>
+            <select id="inputCarrera" name="inputCarrera" class="form-select">
               <option selected>Seleccionar carrera</option>
-              <option>Desarrollo de software</option>
-              <option>Infraestructura de redes</option>
-              <option>Entornos virtuales</option>
+              <option>DSM</option>
+              <option>IRD</option>
+              <option>EV</option>
               
             </select>
           </div>
           <div class="col-md-4">
             <label for="inputGrupo" class="form-label">Grupo</label>
-            <select id="inputGrupo" class="form-select">
+            <select id="inputGrupo" name="inputGrupo" class="form-select">
               <option selected>Seleccionar grupo</option>
               <option>A</option>
               <option>B</option>
@@ -102,12 +102,12 @@
           </div>
 
           <div class="col-md-4">
-            <label for="inputGrupo" class="form-label">Periodo</label>
-            <select id="inputGrupo" class="form-select">
+            <label for="inputPeriodo" class="form-label">Periodo</label>
+            <select id="inputPeriodo" name="inputPeriodo" class="form-select">
               <option selected>Seleccionar periodo</option>
-              <option>2023 A</option>
-              <option>2023 B</option>
-              <option>2023 C</option>
+              <option>2023-A</option>
+              <option>2023-B</option>
+              <option>2023-C</option>
               
             </select>
           </div>

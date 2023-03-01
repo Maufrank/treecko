@@ -1,34 +1,26 @@
-const orden = document.querySelector('#orden');
-const con = document.querySelector('#arpermisos');
+const filtro = document.querySelector('#inputFiltro');
+const con = document.querySelector('#filtrar');
 let permiso = document.querySelector('#permiso');
 
-console.log(orden.value);
+console.log(filtro.value);
 
-orden.addEventListener('change', () =>{
-    console.log(orden.value);
-    switch (orden.value) {
-        case "fecha":
-            con.innerHTML = "<section id='permiso'><h4>Sergio Amaury Montiel Torres</h4><h4>Motivo: Medico</h4><section id='gg'><h4>Grado: 5</h4><h4>Grupo: C</h4></section></section>" ;
-            con.innerHTML += "<section id='permiso' style='background-color:  grey'><h4>Andy Garcia Gonzalez</h4><h4>Motivo: Medico</h4><section><h4>Grado: 5</h4><h4>Grupo: C</h4></section></section>";
-            con.innerHTML += "<section id='permiso' style='background-color:  red'><h4>Andy Garcia Gonzalez</h4><h4>Motivo: Medico</h4><section><h4>Grado: 5</h4><h4>Grupo: C</h4></section></section>";
-            break;
-        case "pendiente":
-            con.innerHTML = "<section id='permiso' style='background-color:  grey'><h4>Andy Garcia Gonzalez</h4><h4>Motivo: Medico</h4><section><h4>Grado: 5</h4><h4>Grupo: C</h4></section></section>";
+filtro.addEventListener('change', () =>{
+    console.log(filtro.value);
+    switch (filtro.value) {
+        case "Periodo":
+          con.innerHTML = " <label for='inputPeriodo' class='form-label'>Selecciona el periodo</label> <select id='inputPeriodo' class='form-select'><option selected>Sin periodo</option><option>2023 A</option><option>2023 B</option><option>2023 C</option></select>";
+          break;
+        case "Division":
+            con.innerHTML = "<label for='inputPeriodo' class='form-label'>Selecciona la division</label><select id='inputDivision' class='form-select'><option selected value='SF'>Sin division</option><option value='TIC'>TIC</option><option value='Agronomia'>Agronomia</option><option value='Contaduria'>Contaduria</option><option value='Construcción'>Construcción</option>";
         break;
-        case "rechazado":
-            con.innerHTML = "<section id='permiso' style='background-color:  red'><h4>Andy Garcia Gonzalez</h4><h4>Motivo: Medico</h4><section><h4>Grado: 5</h4><h4>Grupo: C</h4></section></section>";
+        case "Carrera":
+            con.innerHTML = "";
         break;
-        case "aprobado":
-            con.innerHTML = "<section id='permiso'><h4>Sergio Amaury Montiel Torres</h4><h4>Motivo: Medico</h4><section id='gg'><h4>Grado: 5</h4><h4>Grupo: C</h4></section></section>" ;
+        case "SF":
+            con.innerHTML = "";
         break;
-    
         default:
             break;
             
     }
-});
-
-permiso.addEventListener('click', () =>{
-    console.log("hola");
-    location.href = "consultaal.html";
 });

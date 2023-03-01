@@ -53,16 +53,24 @@
             <h2>Consultar Tutores</h2>
       </div>
 
-      <div class="col-md-4 mx-5">
-        <label for="inputGrupo" class="form-label">Filtrar por:</label>
-        <select id="inputGrupo" class="form-select">
-          <option selected>Sin filtro</option>
-          <option>Periodo</option>
-          <option>Division</option>
-          <option>Carrera</option>
+      <div class="row g-3 px-5 py-3 bg-light rounded">
+        <div class="col-md-4 mx-5">
+          <label for="inputFiltro" class="form-label">Filtrar por:</label>
+          <select id="inputFiltro" class="form-select">
+            <option selected value="SF">Sin filtro</option>
+            <option value="Periodo">Periodo</option>
+            <option value="Division">Division</option>
+            <option value="Carrera">Carrera</option>
+            
+          </select>
+        </div>
+  
+        <div class="col-md-4 mx-5" id='filtrar'>
           
-        </select>
-      </div>
+          
+        </div>
+        </div>
+      
 
       <!-- Formulario de registro de tutor -->
       <div class="container-fluid my-4 ">
@@ -82,17 +90,36 @@
               </tr>
             </thead>
             <tbody>
+              {% for entry in entries %}
               <tr>
                 <th scope="row">1</th>
-                <td>Sergio</td>
-                <td>Montiel</td>
+                <td>{{ entry.nombre}}</td>
+                <td>{{ entry.apellidos}}</td>
                 <td>TIC</td>
                 <td>DSM</td>
-                <td>C</td>
-          <td><button type="submit" class="btn btn-success">Editar</button></td>
-          <td><button type="submit" class="btn btn-danger">Eliminar</button></td>
+                <td>{{ entry.grupo}}</td>
+          <td><button type="button" class="btn btn-success" >Editar</button></td>
+          <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminar">Eliminar</button></td>
+          <div class="modal fade" id="eliminar" tabindex="-1" aria-labelledby="eliminarLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="eliminarLabel">¿Desea eliminar al tutor?</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          
+                </div>
+                <div class="modal-body">
+                  <P>Si elimina este registro nunca mas podra consultarlo</P>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancelar</button>
+                  <button type="submit" class="btn btn-danger"  onclick="location.href=`/tutor/delete/{{entry.usuario}}/`">Eliminar</button>
+                </div>
+              </div>
+            </div>
+          </div>
 
-
+          {% endfor %}
               </tr>
 
             </tbody>
@@ -103,4 +130,6 @@
     
 </body>
 <script src="../static/dist/js/bootstrap.bundle.min.js"></script>
+<!-- <script src="{{url_for('static', filename='script/busqueda.js')}}"></script> -->
+<script src="../static/scripts/busqueda.js"></script>
 </html>
