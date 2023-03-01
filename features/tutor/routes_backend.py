@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, json
+from flask import Blueprint, render_template, request, json, redirect
 # import requests
 from firebase_admin import db
 from firebase import firebase
@@ -12,8 +12,6 @@ def tutor_find():
     registro = []
     for tutores in tutores:
         registro.append(bd.get(f'/tic/tutor/2023-A/DSM/{tutores}', '')) 
-        
-    # registro = json(registro)
     print(registro)
     return render_template('find_tutor.html', entries=registro)
 
@@ -33,7 +31,7 @@ def tutor_add():
     
     resultado = bd.put(f'/tic/tutor/{periodo}/{carrera}', usuario, registro)
     print(resultado)
-    return render_template('find_tutor.html')
+    return redirect('/tutor/find')
     
 
 @app.get('/update')
@@ -45,5 +43,10 @@ def tutor_update():
 def tutor_delete(id):
     print(id)
     bd.delete('/tic/tutor/2023-A/DSM', id)
-    return render_template('find_tutor.html')
+    return redirect('/tutor/find')
 
+@app.get('/actualizar/<id>/')
+def actualizar_tutor(id):
+    datos = bd.get(f'/tic/tutor/2023-A/DSM/{id}', '')
+    print(datos)
+    return render_template('update_tutor.html', entry=datos)

@@ -93,12 +93,12 @@
               {% for entry in entries %}
               <tr>
                 <th scope="row">1</th>
-                <td>{{ entry.nombre}}</td>
-                <td>{{ entry.apellidos}}</td>
+                <td>{{entry.nombre}}</td>
+                <td>{{entry.apellidos}}</td>
                 <td>TIC</td>
                 <td>DSM</td>
-                <td>{{ entry.grupo}}</td>
-          <td><button type="button" class="btn btn-success" >Editar</button></td>
+                <td>{{entry.grupo}}</td>
+          <td><button type="button" class="btn btn-success" onclick="location.href=`/tutor/actualizar/{{entry.usuario}}/`" >Editar</button></td>
           <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminar">Eliminar</button></td>
           <div class="modal fade" id="eliminar" tabindex="-1" aria-labelledby="eliminarLabel" aria-hidden="true">
             <div class="modal-dialog">

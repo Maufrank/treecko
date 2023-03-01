@@ -7,7 +7,7 @@
     <!-- <link rel="stylesheet" href="../static/dist/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/bootstrap.min.css')}}">
 
-    <title>Agregar Tutor</title>
+    <title>Actualizar Tutor</title>
 
 </head>
 <body>
@@ -31,7 +31,6 @@
                     <li><a class="dropdown-item" href="/tutor/consultar">Consultar</a></li>
                   </ul>
               </li>
-
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Directores
@@ -42,7 +41,6 @@
                   </ul>
               </li>
 
-              
             </ul>
             <span class="navbar-text text-white">
               <!-- Navbar text with an inline element -->
@@ -54,56 +52,64 @@
 
       <!-- titulo -->
       <div class="container-fluid my-4 d-flex justify-content-center">
-            <h2>Agregar Director</h2>
+            <h2>Actualizar Tutor</h2>
       </div>
 
       <!-- Formulario de registro de tutor -->
       <div class="container-fluid my-4 ">
-      <form class="row g-3 px-5 py-3 bg-light rounded">
+      <form class="row g-3 px-5 py-3 bg-light rounded" action="/tutor/add" method="post">
         <div class="col-md-6">
           <label for="inputNombre" class="form-label">Nombre</label>
-          <input type="text" class="form-control " id="inputNombre" name="inputNombre">
+          <input type="text" class="form-control " id="inputNombre" name="inputNombre" value="{{entry.nombre}}">
         </div>
         <div class="col-md-6">
           <label for="inputApellidos" class="form-label">Apellidos</label>
-          <input type="text" class="form-control" id="inputApellidos" name="inputApellidos">
+          <input type="text" class="form-control" id="inputApellidos" name="inputApellidos" value="{{entry.apellidos}}">
         </div>
         <div class="col-md-12">
             <label for="inputCorreo" class="form-label">Correo</label>
-            <input type="email" class="form-control" id="inputCorreo" name="inputCorreo">
+            <input type="email" class="form-control" id="inputCorreo" name="inputCorreo" value="{{entry.correo}}">
           </div>
           <div class="col-md-12">
             <label for="inputUsername" class="form-label">Nombre de usuario</label>
-            <input type="text" class="form-control" id="inputUsername" name="inputUsername">
+            <input type="text" class="form-control" id="inputUsername" name="inputUsername" value="{{entry.usuario}}">
           </div>
           <div class="col-md-6">
             <label for="inputPassword" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="inputPassword" name="inputPassword">
+            <input type="password" class="form-control" id="inputPassword" name="inputPassword" value="{{entry.contraseña}}">
           </div>
           <div class="col-md-6">
             <label for="inputRepetPassword" class="form-label">Repetir contraseña:</label>
-            <input type="password" class="form-control" id="inputRepetPassword" name="inputRepetPassword">
+            <input type="password" class="form-control" id="inputRepetPassword" name="inputRepetPassword" value="{{entry.contraseña}}">
           </div>
-          
-
           <div class="col-md-4">
-            <label for="inputPeriodo" class="form-label">Periodo inicial</label>
-            <select id="inputPeriodo" name="inputPeriodo" class="form-select">
-              <option selected>Seleccionar periodo</option>
-              <option>2023-A</option>
-              <option>2023-B</option>
-              <option>2023-C</option>
+            <label for="inputCarrera" class="form-label">Carrera</label>
+            <select id="inputCarrera" name="inputCarrera" class="form-select">
+              <option selected>Seleccionar carrera</option>
+              <option>DSM</option>
+              <option>IRD</option>
+              <option>EV</option>
+              
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="inputGrupo" class="form-label">Grupo</label>
+            <select id="inputGrupo" name="inputGrupo" class="form-select">
+              <option selected>Seleccionar grupo</option>
+              <option>A</option>
+              <option>B</option>
+              <option>C</option>
               
             </select>
           </div>
 
           <div class="col-md-4">
-            <label for="inputPeriodof" class="form-label">Periodo Final</label>
-            <select id="inputPeriodof" name="inputPeriodof" class="form-select">
+            <label for="inputPeriodo" class="form-label">Periodo</label>
+            <select id="inputPeriodo" name="inputPeriodo" class="form-select">
               <option selected>Seleccionar periodo</option>
-              <option>2023 A</option>
-              <option>2023 B</option>
-              <option>2023 C</option>
+              <option>2023-A</option>
+              <option>2023-B</option>
+              <option>2023-C</option>
               
             </select>
           </div>
@@ -119,4 +125,5 @@
 </body>
 <!-- <script src="../static/dist/js/bootstrap.bundle.min.js"></script> -->
 <script src="{{ url_for('static', filename='dist/js/bootstrap.bundle.min.js')}}"></script>
+
 </html>
