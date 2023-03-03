@@ -26,7 +26,7 @@
                   </a>
                   <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="/tutor/agregar">Agregar</a></li>
-                    <li><a class="dropdown-item" href="/tutor/consultar">Consultar</a></li>
+                    <li><a class="dropdown-item" href="/tutor/find"">Consultar</a></li>
                   </ul>
               </li>
               <li class="nav-item dropdown">
@@ -74,7 +74,6 @@
                 <th scope="col">Nombre</th>
                 <th scope="col">Apellidos</th>
                 <th scope="col">Division</th>
-                <th scope="col">Estado</th>
                 <th scope="col">Editar</th>
                 <th scope="col">Eliminar</th>
 
@@ -82,16 +81,34 @@
               </tr>
             </thead>
             <tbody>
+              {% for entry in entries %}
               <tr>
                 <th scope="row">1</th>
-                <td>Sergio</td>
-                <td>Montiel</td>
+                <td>{{entry.nombre}}</td>
+                <td>{{entry.apellidos}}</td>
                 <td>TIC</td>
-                <td>Activo</td>
-          <td><button type="submit" class="btn btn-success">Editar</button></td>
-          <td><button type="submit" class="btn btn-danger">Eliminar</button></td>
+          <td><button type="button" class="btn btn-success" onclick="location.href=`/tutor/actualizar/{{entry.usuario}}/`" >Editar</button></td>
+          <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminar">Eliminar</button></td>
+          <div class="modal fade" id="eliminar" tabindex="-1" aria-labelledby="eliminarLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="eliminarLabel">¿Desea eliminar al tutor?</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          
+                </div>
+                <div class="modal-body">
+                  <P>Si elimina este registro nunca mas podra consultarlo</P>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancelar</button>
+                  <button type="submit" class="btn btn-danger"  onclick="location.href=`/director/delete/{{entry.usuario}}/`">Eliminar</button>
+                </div>
+              </div>
+            </div>
+          </div>
 
-
+          {% endfor %}
               </tr>
 
             </tbody>

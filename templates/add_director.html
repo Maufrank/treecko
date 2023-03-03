@@ -28,7 +28,7 @@
                   </a>
                   <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="/tutor/agregar">Agregar</a></li>
-                    <li><a class="dropdown-item" href="/tutor/consultar">Consultar</a></li>
+                    <li><a class="dropdown-item" href="/tutor/find"">Consultar</a></li>
                   </ul>
               </li>
 
@@ -59,7 +59,7 @@
 
       <!-- Formulario de registro de tutor -->
       <div class="container-fluid my-4 ">
-      <form class="row g-3 px-5 py-3 bg-light rounded">
+      <form class="row g-3 px-5 py-3 bg-light rounded" action="/director/add" method="post">
         <div class="col-md-6">
           <label for="inputNombre" class="form-label">Nombre</label>
           <input type="text" class="form-control " id="inputNombre" name="inputNombre">

@@ -28,8 +28,13 @@ def tutor_add():
     carrera = request.form['inputCarrera']
     periodo = request.form['inputPeriodo']
     usuario = request.form['inputUsername']
+    user = {
+        'password': request.form['inputUsername'],
+        'rol': 'tutor'
+    }
     
     resultado = bd.put(f'/tic/tutor/{periodo}/{carrera}', usuario, registro)
+    bd.put(f"/usuarios", usuario, user)
     print(resultado)
     return redirect('/tutor/find')
     
@@ -50,3 +55,20 @@ def actualizar_tutor(id):
     datos = bd.get(f'/tic/tutor/2023-A/DSM/{id}', '')
     print(datos)
     return render_template('update_tutor.html', entry=datos)
+
+@app.route('/find/filter',  methods=['POST'])
+def buscar_filtro():
+    filtro = request.form['inputFiltro']
+    tutores = []
+    if filtro == "Division":
+        division = request.form['inputDivision']
+        consulta = bd.get(f'/{division}/tutor', '')
+        # consulta = 
+        # for consulta in consulta:
+        #     periodo = bd.get(f'/{division}/tutor/{consulta}', '')
+        #     for periodo in periodo:
+        #         carrera = bd.get(f'/{division}/tutor/{consulta}/{periodo}', '')
+        #         for carrera in carrera:
+        #             # tutor = bd.get(f'/{division}/tutor/{consulta}/{periodo}/{carrera}', '')
+        #             tutores.append(bd.get(f'/{division}/tutor/{consulta}/{periodo}/{carrera}', ''))
+    return tutores

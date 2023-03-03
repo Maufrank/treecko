@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect
 # import requests
 from firebase_admin import db
 from firebase import firebase
@@ -8,8 +8,12 @@ bd = firebase.FirebaseApplication("https://treecko-c8c52-default-rtdb.firebaseio
 
 @app.get('/find')
 def director_find():
-    leer = bd.get('/tic/director', '')
-    return leer
+    director = bd.get('/tic/director/', '')
+    registro = []
+    for director in director:
+        registro.append(bd.get(f'/tic/director/{director}', '')) 
+    print(registro)
+    return render_template('find_director.html', entries=registro)
 
 @app.route('/add', methods=['POST'])
 def director_add():
@@ -19,13 +23,16 @@ def director_add():
         'correo': request.form['inputCorreo'],
         'usuario': request.form['inputUsername'],
         'contraseña': request.form['inputPassword'],
-        'grupo': request.form['inputGrupo']
+        'periodo': [{
+            'inicio': request.form['inputPeriodo'],
+            'final': request.form['inputPeriodof']
+        }]
     }
-    periodo = request.form['inputPeriodo']
-    
-    resultado = bd.post(f'/tic/director/{periodo}', registro)
+    usuario= request.form['inputUsername']
+    print(registro)
+    resultado = bd.put(f'/tic/director', usuario ,registro)
     print(resultado)
-    return render_template('find_director.html')
+    return redirect('/director/find')
     
 
 @app.get('/update')
@@ -33,7 +40,8 @@ def director_update():
     bd.put('/tic/-NPK_tfzeVLDtju5qrBq', 'saludo', 'Hola cola')
     return 'se actualizo'
     
-@app.get('/delete')
-def director_delete():
-    bd.delete('/tic', '-NPK_tfzeVLDtju5qrBq')
-    return 'se elimino el registro'
+@app.get('/delete/<id>/')
+def director_delete(id):
+    print(id)
+    bd.delete('/tic/director', id)
+    return redirect('/director/find')

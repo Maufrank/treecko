@@ -26,7 +26,7 @@
                   </a>
                   <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="/tutor/agregar">Agregar</a></li>
-                    <li><a class="dropdown-item" href="/tutor/consultar">Consultar</a></li>
+                    <li><a class="dropdown-item" href="/tutor/find"">Consultar</a></li>
                   </ul>
               </li>
               <li class="nav-item dropdown">
@@ -53,22 +53,26 @@
             <h2>Consultar Tutores</h2>
       </div>
 
-      <div class="row g-3 px-5 py-3 bg-light rounded">
-        <div class="col-md-4 mx-5">
+      <div >
+        <form action="/tutor/find/filter" class="row g-3 px-5 py-3 bg-light rounded" method="post">
+        <div class="col-md-3 mx-5">
           <label for="inputFiltro" class="form-label">Filtrar por:</label>
-          <select id="inputFiltro" class="form-select">
+          <select id="inputFiltro" class="form-select" name="inputFiltro">
             <option selected value="SF">Sin filtro</option>
-            <option value="Periodo">Periodo</option>
+            <!-- <option value="Periodo">Periodo</option> -->
             <option value="Division">Division</option>
             <option value="Carrera">Carrera</option>
             
           </select>
         </div>
   
-        <div class="col-md-4 mx-5" id='filtrar'>
-          
-          
+        <div class="col-md-3 mx-5" id='filtrar'>
+           
         </div>
+        <div class="col-md-2 mx-5" id="botonB">
+
+        </div>
+      </form>
         </div>
       
 

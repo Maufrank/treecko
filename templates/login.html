@@ -15,17 +15,17 @@
       <img src="{{ url_for('static', filename='img/logo1.jpeg')}}" alt="" class="img">
     </div>
     <div class="col align-self-center">
-      <form class="row g-3 px-5 py-3 bg-light rounded">
+      <form class="row g-3 px-5 py-3 bg-light rounded" action="/sesion/login" method="POST">
         <div class="">
-          <label for="inputNombre" class="form-label">Nombre</label>
-          <input type="text" class="form-control " id="inputNombre">
+          <label for="inputUsername" class="form-label">Nombre de usuario:</label>
+          <input type="text" class="form-control "  id="inputUsername" name="inputUsername">
         </div>
         <div class="">
-          <label for="inputApellidos" class="form-label">Apellidos</label>
-          <input type="text" class="form-control" id="inputApellidos">
+          <label for="inputPassw" class="form-label">Contraseña</label>
+          <input type="password" class="form-control" id="inputPassw" name="inputPassw">
         </div>
         <div class="">
-          <button type="submit" class="btn btn-success">Agregar</button>
+          <button type="submit" class="btn btn-success">Iniciar sesion</button>
         </div>
       </form>
     </div>
