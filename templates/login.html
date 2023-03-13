@@ -15,7 +15,9 @@
       <img src="{{ url_for('static', filename='img/logo1.jpeg')}}" alt="" class="img">
     </div>
     <div class="col align-self-center">
-      <form class="row g-3 px-5 py-3 bg-light rounded" action="/sesion/login" method="POST">
+      <form id="mylogin" class="row g-3 px-5 py-3 bg-light rounded" action="/sesion/login" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
         <div class="">
           <label for="inputUsername" class="form-label">Nombre de usuario:</label>
           <input type="text" class="form-control "  id="inputUsername" name="inputUsername">
@@ -26,6 +28,9 @@
         </div>
         <div class="">
           <button type="submit" class="btn btn-success">Iniciar sesion</button>
+      <button type="button" class="btn btn-white" onclick="location.href=`/alumno/registrar`">Registrarse</button>
+          
+
         </div>
       </form>
     </div>
@@ -35,5 +40,6 @@
     
 </body>
 <script src="../static/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../static/scripts/login_addusua.js"></script>
 
 </html>

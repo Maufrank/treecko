@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../static/dist/css/bootstrap.min.css">
+  <title>Consultar Alumnos</title>
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary bg-success">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand text-white" href="#">TREECKO</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon text-white">Menú</span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active text-white" aria-current="page" href="/permisos/consultar">Mis ermisos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active text-white" aria-current="page" href="/permisos/agregar">Solicitar</a>
+          </li>
+          </ul>
+            <span class="navbar-text text-white">
+              <!-- Navbar text with an inline element -->
+              <button type="submit" class="btn btn-danger">Cerrar Sesion</button>
+            </span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- titulo -->
+  <div class="container-fluid my-4 d-flex justify-content-center">
+    <h2>Consultar mis Permisos</h2>
+  </div>
+
+  <form class="row g-3 px-5 py-3 bg-light rounded" action="/permiso/find" method="post">
+    <div class="col-md-4 mx-5">
+      <label for="inputFiltro" class="form-label">Filtrar por:</label>
+      <select id="inputFiltro" class="form-select">
+        <option selected>Sin filtro</option>
+        <option>Motivo</option>
+        <option>Fecha de Solicitud</option>
+
+      </select>
+    </div>
+  </form>
+
+  <!-- Formulario de registro de tutor -->
+  <div class="container-fluid my-4 " >
+    <table class="table px-5">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Motivo del permiso</th>
+          <th scope="col">Fecha de Solicitud</th>
+          <th scope="col">Aprobacion Tutor</th>
+          <th scope="col">Aprobacion Director</th>
+          <th scope="col">Ver permiso</th>
+
+
+        </tr>
+      </thead>
+      <tbody>
+        {% for entry in entries %}
+        <tr>
+          <th scope="row">1</th>
+          <td>{{ entry.motivo }}</td>
+          <td>{{ entry.fecha }}</td>
+          <td>{{ entry.aprobacionTutor }}</td>
+          <td>{{ entry.aprobacionDirector }}</td>
+          <td><button type="submit" class="btn btn-success" onclick="location.href=`/permiso/ver/{{entry.fecha}}/`">Ver permiso</button></td>
+
+
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+
+
+</body>
+<script src="../static/dist/js/bootstrap.bundle.min.js"></script>
+
+</html>

@@ -5,8 +5,20 @@ app = Blueprint('director', __name__, url_prefix='/director')
 
 @app.get('/consultar')
 def director_find():
-    return render_template('find_director.html')
+    if 'username' in session:
+        if session['rol'] == 'administrador':
+            return render_template('find_director.html')
+        else:
+            return redirect('/')
+    else:
+        return redirect('/')
 
 @app.get('/agregar')
 def director_add():
-    return render_template('add_director.html')
+    if 'username' in session:
+        if session['rol'] == 'administrador':
+            return render_template('add_director.html')
+        else:
+            return redirect('/')
+    else:
+        return redirect('/')

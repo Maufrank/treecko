@@ -1,52 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/dist/css/bootstrap.min.css">
-    <title>Agregar Alumnos</title>
+{% extends 'base/header_admin.html' %}
 
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary bg-success">
-        <div class="container-fluid px-4">
-          <a class="navbar-brand text-white" href="#">TREECKO</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon text-white">Menú</span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active text-white" aria-current="page" href="/alumnos/consultar">Alumno</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Tutores
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/tutor/agregar">Agregar</a></li>
-                    <li><a class="dropdown-item" href="/tutor/find">Consultar</a></li>
-                  </ul>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Directores
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/director/agregar">Agregar</a></li>
-                    <li><a class="dropdown-item" href="/director/consultar">Consultar</a></li>
-                  </ul>
-              </li>
+{% block titulo %}
+<title>Agregar Alumno</title>
+{% endblock %}
 
-            </ul>
-            <span class="navbar-text text-white">
-              <!-- Navbar text with an inline element -->
-              <button type="submit" class="btn btn-danger">Cerrar Sesion</button>
-            </span>
-          </div>
-        </div>
-      </nav>
+{% block content %}
 
       <!-- titulo -->
       <div class="container-fluid my-4 d-flex justify-content-center">
@@ -55,7 +13,9 @@
 
       <!-- Formulario de registro de tutor -->
       <div class="container-fluid my-4 ">
-      <form class="row g-3 px-5 py-3 bg-light rounded" action="/alumno/register" method="post">
+      <form id="myform" class="row g-3 px-5 py-3 bg-light rounded" action="/alumno/register" method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
         <div class="col-md-6">
           <label for="inputNombre" class="form-label">Nombre</label>
           <input type="text" class="form-control " id="inputNombre" name="inputNombre">
@@ -98,6 +58,16 @@
             </select>
           </div>
           <div class="col-md-4">
+            <label for="inputDivision" class="form-label">Division</label>
+            <select id="inputDivision" class="form-select" name="inputDivision">
+              <option selected>Selecciona Division</option>
+              <option>tic</option>
+              <option>ird</option>
+              <option>ev</option>
+              
+            </select>
+          </div>
+          <div class="col-md-4">
             <label for="inputCarrera" class="form-label">Carrera</label>
             <select id="inputCarrera" class="form-select" name="inputCarrera">
               <option selected>Seleccionar carrera</option>
@@ -119,13 +89,11 @@
           </div>
         
         <div class="col-12">
-          <button type="submit" class="btn btn-success">Agregar</button>
+          <button type="submit" class="btn btn-success">Registrarme</button>
         </div>
       </form>
       </div>
 
-
+<script src="../static/scripts/validatefrom_addalum.js"></script>
     
-</body>
-<script src="../static/dist/js/bootstrap.bundle.min.js"></script>
-</html>
+      {% endblock %}

@@ -1,65 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="../static/dist/css/bootstrap.min.css"> -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/bootstrap.min.css')}}">
-
-    <title>Agregar Tutor</title>
-
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary bg-success">
-        <div class="container-fluid px-4">
-          <a class="navbar-brand text-white" href="#">TREECKO</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon text-white">Menú</span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active text-white" aria-current="page" href="/alumnos/consultar">Alumnos</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Tutores
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/tutor/agregar">Agregar</a></li>
-                    <li><a class="dropdown-item" href="/tutor/find"">Consultar</a></li>
-                  </ul>
-              </li>
-
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Directores
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/director/agregar">Agregar</a></li>
-                    <li><a class="dropdown-item" href="/director/consultar">Consultar</a></li>
-                  </ul>
-              </li>
-
-              
-            </ul>
-            <span class="navbar-text text-white">
-              <!-- Navbar text with an inline element -->
-              <button type="submit" class="btn btn-danger">Cerrar Sesion</button>
-            </span>
-          </div>
-        </div>
-      </nav>
+{% extends 'base/header_admin.html' %}
 
       <!-- titulo -->
-      <div class="container-fluid my-4 d-flex justify-content-center">
-            <h2>Agregar Director</h2>
-      </div>
 
+      {% block titulo %}
+<title>Agregar Director</title>
+{% endblock %}
+
+{% block content %}
       <!-- Formulario de registro de tutor -->
       <div class="container-fluid my-4 ">
-      <form class="row g-3 px-5 py-3 bg-light rounded" action="/director/add" method="post">
+      <form id="mydirec" class="row g-3 px-5 py-3 bg-light rounded" action="/director/add" method="post">
         <div class="col-md-6">
           <label for="inputNombre" class="form-label">Nombre</label>
           <input type="text" class="form-control " id="inputNombre" name="inputNombre">
@@ -113,10 +63,5 @@
         </div>
       </form>
       </div>
-
-
-    
-</body>
-<!-- <script src="../static/dist/js/bootstrap.bundle.min.js"></script> -->
-<script src="{{ url_for('static', filename='dist/js/bootstrap.bundle.min.js')}}"></script>
-</html>
+<script src="../static/scripts/validatefrom_adddirec.js"></script>
+      {% endblock %}

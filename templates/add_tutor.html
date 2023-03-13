@@ -1,125 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/dist/css/bootstrap.min.css">
-    <title>Agregar Tutor</title>
+{% extends 'base/header_admin.html' %}
 
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary bg-success">
-        <div class="container-fluid px-4">
-          <a class="navbar-brand text-white" href="#">TREECKO</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon text-white">Menú</span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active text-white" aria-current="page" href="/alumnos/consultar">Alumnos</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Tutores
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/tutor/agregar">Agregar</a></li>
-                    <li><a class="dropdown-item" href="/tutor/find"">Consultar</a></li>
-                  </ul>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Directores
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/director/agregar">Agregar</a></li>
-                    <li><a class="dropdown-item" href="/director/consultar">Consultar</a></li>
-                  </ul>
-              </li>
+{% block titulo %}
+<title>Agregar Tutor</title>
+{% endblock %}
 
-            </ul>
-            <span class="navbar-text text-white">
-              <!-- Navbar text with an inline element -->
-              <button type="submit" class="btn btn-danger">Cerrar Sesion</button>
-            </span>
-          </div>
-        </div>
-      </nav>
+
+{% block content %}
+
 
       <!-- titulo -->
       <div class="container-fluid my-4 d-flex justify-content-center">
-            <h2>Agregar Tutor</h2>
-      </div>
+        <h2>Agregar Tutor</h2>
+  </div>
 
-      <!-- Formulario de registro de tutor -->
-      <div class="container-fluid my-4 ">
-      <form class="row g-3 px-5 py-3 bg-light rounded" action="/tutor/add" method="post">
-        <div class="col-md-6">
-          <label for="inputNombre" class="form-label">Nombre</label>
-          <input type="text" class="form-control " id="inputNombre" name="inputNombre">
-        </div>
-        <div class="col-md-6">
-          <label for="inputApellidos" class="form-label">Apellidos</label>
-          <input type="text" class="form-control" id="inputApellidos" name="inputApellidos">
-        </div>
-        <div class="col-md-12">
-            <label for="inputCorreo" class="form-label">Correo</label>
-            <input type="email" class="form-control" id="inputCorreo" name="inputCorreo">
-          </div>
-          <div class="col-md-12">
-            <label for="inputUsername" class="form-label">Nombre de usuario</label>
-            <input type="text" class="form-control" id="inputUsername" name="inputUsername">
-          </div>
-          <div class="col-md-6">
-            <label for="inputPassword" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="inputPassword" name="inputPassword">
-          </div>
-          <div class="col-md-6">
-            <label for="inputRepetPassword" class="form-label">Repetir contraseña:</label>
-            <input type="password" class="form-control" id="inputRepetPassword" name="inputRepetPassword">
-          </div>
-          <div class="col-md-4">
-            <label for="inputCarrera" class="form-label">Carrera</label>
-            <select id="inputCarrera" name="inputCarrera" class="form-select">
-              <option selected>Seleccionar carrera</option>
-              <option>DSM</option>
-              <option>IRD</option>
-              <option>EV</option>
-              
-            </select>
-          </div>
-          <div class="col-md-4">
-            <label for="inputGrupo" class="form-label">Grupo</label>
-            <select id="inputGrupo" name="inputGrupo" class="form-select">
-              <option selected>Seleccionar grupo</option>
-              <option>A</option>
-              <option>B</option>
-              <option>C</option>
-              
-            </select>
-          </div>
-
-          <div class="col-md-4">
-            <label for="inputPeriodo" class="form-label">Periodo</label>
-            <select id="inputPeriodo" name="inputPeriodo" class="form-select">
-              <option selected>Seleccionar periodo</option>
-              <option>2023-A</option>
-              <option>2023-B</option>
-              <option>2023-C</option>
-              
-            </select>
-          </div>
-        
-        <div class="col-12">
-          <button type="submit" class="btn btn-success">Agregar</button>
-        </div>
-      </form>
-      </div>
-
-
+  <!-- Formulario de registro de tutor -->
+  <div class="container-fluid my-4 ">
+  <form id="mytutor" class="row g-3 px-5 py-3 bg-light rounded" action="/tutor/add" method="post">
     
-</body>
-<script src="../static/dist/js/bootstrap.bundle.min.js"></script>
-</html>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    
+    <div class="col-md-6">
+      <label for="inputNombre" class="form-label">Nombre</label>
+      <input type="text" class="form-control " id="inputNombre" name="inputNombre">
+    </div>
+    <div class="col-md-6">
+      <label for="inputApellidos" class="form-label">Apellidos</label>
+      <input type="text" class="form-control" id="inputApellidos" name="inputApellidos">
+    </div>
+    <div class="col-md-12">
+        <label for="inputCorreo" class="form-label">Correo</label>
+        <input type="email" class="form-control" id="inputCorreo" name="inputCorreo">
+      </div>
+      <div class="col-md-12">
+        <label for="inputUsername" class="form-label">Nombre de usuario</label>
+        <input type="text" class="form-control" id="inputUsername" name="inputUsername">
+      </div>
+      <div class="col-md-6">
+        <label for="inputPassword" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" id="inputPassword" name="inputPassword">
+      </div>
+      <div class="col-md-6">
+        <label for="inputRepetPassword" class="form-label">Repetir contraseña:</label>
+        <input type="password" class="form-control" id="inputRepetPassword" name="inputRepetPassword">
+      </div>
+      <div class="col-md-4">
+        <label for="inputDivision" class="form-label">Division</label>
+        <select id="inputDivision" name="inputDivision" class="form-select">
+          <option selected>Seleccionar division</option>
+          <option value="tic">tic</option>
+          <option>Agro</option>
+          <option>Construccion</option>
+          
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label for="inputCarrera" class="form-label">Carrera</label>
+        <select id="inputCarrera" name="inputCarrera" class="form-select">
+          <option selected>Seleccionar carrera</option>
+          <option>DSM</option>
+          <option>IRD</option>
+          <option>EV</option>
+          
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label for="inputGrupo" class="form-label">Grupo</label>
+        <select id="inputGrupo" name="inputGrupo" class="form-select">
+          <option selected>Seleccionar grupo</option>
+          <option>A</option>
+          <option>B</option>
+          <option>C</option>
+          
+        </select>
+      </div>
+
+      
+    
+    <div class="col-12">
+      <button type="submit" class="btn btn-success">Agregar</button>
+    </div>
+  </form>
+  </div>
+  <!-- <script src="../static/scripts/validatefrom_addtutor.js"></script> -->
+
+{% endblock %}

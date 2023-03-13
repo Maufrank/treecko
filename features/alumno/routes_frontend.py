@@ -6,11 +6,13 @@ app = Blueprint('alumnopages', __name__, url_prefix='/alumno')
 def alumno():
     return render_template('add_alumno.html')
 
+
 @app.get('/consultar')
 def con_alumno():
-    return render_template('find_alumno.html')
-
-@app.get('/permiso')
-def add_permiso():
-    return render_template('add_permisos.html')
-
+    if 'username' in session:
+        if session['rol'] == 'alumno':
+            return render_template('find_alumno.html')
+        else:
+            return redirect('/')
+    else:
+        return redirect('/')

@@ -38,6 +38,7 @@
                     <th scope="col">Motivo</th>
                     <th scope="col">Descripcion</th>
                     <th scope="col">Fecha</th>
+                    <th scope="col">Vista del tutor</th>
                     <th scope="col">Estado</th>
                     <th scope="col">Ver Permisos</th>
                 </tr>
@@ -50,6 +51,7 @@
                     <td>{{ entry.descripcion}}</td>
                     <td>{{ entry.fecha}}</td>
                     <td>{{ entry.aprobacionTutor }}</td>
+                    <td>{{ entry.aprobacionDirector }}</td>
                     <td><button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#eliminar">Ver permiso</button></td>
                     <div class="modal fade" id="eliminar" tabindex="-1" aria-labelledby="eliminarLabel" aria-hidden="true">
                       <div class="modal-dialog">
@@ -63,13 +65,17 @@
                             <P>Motivo: {{ entry.motivo }}</P><br>
                             <p>Descripcion: {{ entry.descripcion }}</p><br>
                             <p>Fecha solicitada: {{ entry.fecha }}</p><br>
+                            <p>Carrera: {{ entry.carrera }}</p><br>
+                            <p>Vista del tutor: {{ entry.aprobacionTutor }}</p><br>
+
+
                             <button type="submit" class="btn btn-success"  onclick="location.href=`/permiso/descargar/comprobante/{{entry.comprobante}}/`">Descargar comprobante</button>
 
                             
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-warning" data-bs-dismiss="modal"  onclick="location.href=`/permiso/tutor/show/{{entry.usuario}}/{{entry.fecha}}/Rechazado`">Rechazar</button>
-                            <button type="submit" class="btn btn-success"  onclick="location.href=`/permiso/tutor/show/{{entry.usuario}}/{{entry.fecha}}/Revisado`">Dar visto bueno</button>
+                            <button type="button" class="btn btn-warning" data-bs-dismiss="modal"  onclick="location.href=`/permiso/director/show/{{entry.carrera}}/{{entry.usuario}}/{{entry.fecha}}/Rechazado`">Rechazar</button>
+                            <button type="submit" class="btn btn-success"  onclick="location.href=`/permiso/director/show/{{entry.carrera}}/{{entry.usuario}}/{{entry.fecha}}/Aprobado`">Dar visto bueno</button>
                           </div>
                         </div>
                       </div>

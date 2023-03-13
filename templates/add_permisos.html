@@ -1,53 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/dist/css/bootstrap.min.css">
+{% extends 'base/header_alumno.html' %}
 
-    <title>Solicitar permisos</title>
+{% block titulo %}
+<title>Agregar permiso</title>
+{% endblock %}
 
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary bg-success">
-        <div class="container-fluid px-4">
-          <a class="navbar-brand text-white" href="#">TREECKO</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon text-white">Menú</span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active text-white" aria-current="page" href="/alumnos/consultar">Alumno</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Tutores
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/tutor/agregar">Agregar</a></li>
-                    <li><a class="dropdown-item" href="/tutor/find"">Consultar</a></li>
-                  </ul>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Directores
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/director/agregar">Agregar</a></li>
-                    <li><a class="dropdown-item" href="/director/consultar">Consultar</a></li>
-                  </ul>
-              </li>
-
-            </ul>
-            <span class="navbar-text text-white">
-              <!-- Navbar text with an inline element -->
-              <button type="submit" class="btn btn-danger">Cerrar Sesion</button>
-            </span>
-          </div>
-        </div>
-      </nav>
+{% block content %}
 
       <!-- titulo -->
       <div class="container-fluid my-4 d-flex justify-content-center">
@@ -56,48 +13,46 @@
 
       <!-- Formulario de registro de tutor -->
       <div class="container-fluid my-4 ">
-      <form class="row g-3 px-5 py-3 bg-light rounded">
-        <div class="col-md-4">
-            <label for="inputMotivo" class="form-label">Motivo del permiso</label>
-            <select id="inputMotivo" class="form-select">
-              <option selected>Elige Motivo</option>
-              <option>Medico</option>
-              <option>Personal</option>
-              <option>Fuerzas mayores</option>
-              
-            </select>
+        <form class="row g-3 px-5 py-3 bg-light rounded" action="/permiso/add" method="post" enctype="multipart/form-data">
+  
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  
+          <div class="col-md-4">
+              <label for="inputMotivo" class="form-label">Motivo del permiso</label>
+              <select id="inputMotivo" class="form-select" name="inputMotivo">
+                <option selected>Elige Motivo</option>
+                <option>Medico</option>
+                <option>Personal</option>
+                <option>Fuerzas mayores</option>
+                
+              </select>
+            </div>
+  
+          <div class="col-md-12">
+            <label for="inputDescripcion" class="form-label">Descripcion</label>
+            <input type="text" class="form-control " id="inputDescripcion" name="inputDescripcion">
           </div>
-
-        <div class="col-md-12">
-          <label for="inputDescripcion" class="form-label">Descripcion</label>
-          <input type="text" class="form-control " id="inputDescripcion">
-        </div>
-
-        <div class="col-md-6">
-          <label for="inputFechaInicial" class="form-label">Fecha inicial</label>
-          <input type="date" class="form-control" id="inputFechaInicial">
-        </div>
-
-        <div class="col-md-6">
-            <label for="inputFechaFinal" class="form-label">Fecha final</label>
-            <input type="date" class="form-control" id="inputFechaFinal">
+  
+          <div class="col-md-6">
+            <label for="inputFechaInicial" class="form-label">Fecha de solicitud</label>
+            <input type="date" class="form-control" id="inputFechaInicial" name="inputFechaInicial">
           </div>
-
-        <div class="col-md-12">
-            <label for="inputComprobante" class="form-label">Sube tu comprobante</label>
-            <input type="file" class="form-control" id="inputComprobante">
+  
+          <div class="col-md-12">
+              <label for="inputComprobante" class="form-label">Sube tu comprobante</label>
+              <input type="file" class="form-control" id="inputComprobante" name="inputComprobante">
+            </div>
+            
+          <div class="col-md-1">
+            <button type="submit" class="btn btn-success">Agregar</button>
           </div>
-          
-        <div class="col-12">
-          <button type="submit" class="btn btn-success">Agregar</button>
+  
+          <div class="col-md-1">
+            <button type="submit" class="btn btn-danger">Cancelar</button>
+          </div>
+        </form>
         </div>
-      </form>
-      </div>
+      <script src="../static/scripts/validateform_addpermi.js"></script>
 
-
-    
-</body>
-
-<script src="../static/dist/js/bootstrap.bundle.min.js"></script>
-
-</html>
+      {% endblock %}
+      

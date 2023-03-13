@@ -1,0 +1,35 @@
+{% extends 'base/header_admin.html' %}
+
+{% block titulo %}
+<title>Agregar Alumno</title>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid my-4 ">
+
+<div class="card my-4">
+    <div class="card-header bg-success text-white">
+      Actualizar periodo
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">¿Desea actualizar el periodo actual?</h5>
+      <p class="card-text">El periodo se actualizara con base a la fecha actual</p>
+      <a href="#" class="btn btn-success" onclick="location.href=`/actualizar/periodo`">Actualizar</a>
+    </div>
+  </div>
+
+  <div class="card my-4">
+    <div class="card-header bg-success text-white">
+      Respaldar base de datos
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">¿Desea realizar un respaldo de la base de datos?</h5>
+      <p class="card-text">El respaldo contendra toda la información actual de la base de datos</p>
+      <a href="#" class="btn btn-success" onclick="location.href=`/respaldo`">Respaldar</a>
+    </div>
+  </div>
+
+</div>
+
+
+{% endblock %}
