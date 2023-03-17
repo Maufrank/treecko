@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,20 +57,20 @@
 
   <!-- Formulario de registro de tutor -->
   <div class="container-fluid my-4 " >
-    <table class="table px-5">
+    <table class="table px-5" id="tablaPermisos">
       <thead>
         <tr>
-          <th scope="col">#</th>
+          <!-- <th scope="col">#</th> -->
           <th scope="col">Motivo del permiso</th>
           <th scope="col">Fecha de Solicitud</th>
           <th scope="col">Aprobacion Tutor</th>
           <th scope="col">Aprobacion Director</th>
-          <th scope="col">Ver permiso</th>
+          <!-- <th scope="col">Ver permiso</th> -->
 
 
         </tr>
       </thead>
-      <tbody>
+      <!-- <tbody>
         {% for entry in entries %}
         <tr>
           <th scope="row">1</th>
@@ -80,9 +83,38 @@
 
         </tr>
         {% endfor %}
-      </tbody>
+      </tbody> -->
     </table>
   </div>
+{% endblock %}
+
+
+  {% block scripts %}
+  {{ super() }}
+    <script>
+        $(function(){
+
+          $.ajax({
+            url: '/permiso/findRep',
+            type:"GET",
+            success: function(response){
+              console.log("hola->",response)
+              $('#tablaPermisos').DataTable({
+                pageLenght:10,
+                "data":response["datos"],
+                "columns":[
+                  {"data":"motivo"},
+                  {"data":"fecha"},
+                  {"data":"aprobacionTutor"},
+                  {"data":"aprobacionDirector"},
+                ]
+              })
+            }
+          })
+        })
+    </script>
+
+  {% endblock %}
 
 
 

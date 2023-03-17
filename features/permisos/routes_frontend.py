@@ -11,3 +11,7 @@ def director_find():
 @app.get('/registrar')
 def permiso_add():
     return render_template('add_permisos.html')
+
+@app.route('/alumno/ver')
+def mis_permisos():
+    return render_template('find_permiso.html')

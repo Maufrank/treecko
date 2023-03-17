@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, json, redirect, session, send_file
+from flask import Blueprint, jsonify, render_template, request, json, redirect, session, send_file
 #import request
 # from firebase_admin import bd
 from firebase import firebase
@@ -13,6 +13,7 @@ bd = firebase.FirebaseApplication("https://treecko-c8c52-default-rtdb.firebaseio
 
 @app.get('/find')
 def alumno_find():
+    
     registro = []
     division = session['division']
     carrera = session['carrera']
@@ -53,15 +54,22 @@ def permiso():
 
 @app.route('/ver/<idPermiso>/')
 def ver_permiso(idPermiso):
-    carrera = session['carrera']
-    usuario = session['username']
-    division = session['division']
+    if 'username' in session:
+        if session['rol'] == 'alumno':
+            carrera = session['carrera']
+            usuario = session['username']
+            division = session['division']
+            
+            resultado = bd.get(f'/treecko/{division}/alumno/{carrera}/{usuario}/permisos/{idPermiso}', '')
+            img = bd.get(f'/treecko/{division}/alumno/{carrera}/{usuario}/permisos/{idPermiso}/comprobante', '')
+            # print(img)
+            
+            return render_template('show_permisos.html', entries=resultado)
+        else:
+            return redirect('/')
+    else:
+        return redirect('/')
     
-    resultado = bd.get(f'/treecko/{division}/alumno/{carrera}/{usuario}/permisos/{idPermiso}', '')
-    img = bd.get(f'/treecko/{division}/alumno/{carrera}/{usuario}/permisos/{idPermiso}/comprobante', '')
-    # print(img)
-    
-    return render_template('show_permisos.html', entries=resultado)
 
 @app.route('/tutor/validar/<division>/<carrera>/<usuario>/<idPermiso>/')
 def validar_por_tutor(division, carrera, usuario, idPermiso):
@@ -80,58 +88,114 @@ def descarga_comprobante(comprobante):
     
 @app.route('/tutor/find')
 def tutor_ver_permisos():
-    division = session['division']
-    carrera = session['carrera']
-    permi = []
-    alumnos = bd.get(f'/treecko/{division}/alumno/{carrera}', '')
-    for alumnos in alumnos:
-        permisos = bd.get(f'/treecko/{division}/alumno/{carrera}/{alumnos}/permisos', '')
-        for permisos in permisos:
-            per = bd.get(f'/treecko/{division}/alumno/{carrera}/{alumnos}/permisos/{permisos}', '')
-            if per != "nada":
-                permi.append(per)
+    if 'username' in session:
+        if session['rol'] == 'alumno':
+            division = session['division']
+            carrera = session['carrera']
+            permi = []
+            alumnos = bd.get(f'/treecko/{division}/alumno/{carrera}', '')
+            for alumnos in alumnos:
+                permisos = bd.get(f'/treecko/{division}/alumno/{carrera}/{alumnos}/permisos', '')
+                for permisos in permisos:
+                    per = bd.get(f'/treecko/{division}/alumno/{carrera}/{alumnos}/permisos/{permisos}', '')
+                    if per != "nada":
+                        permi.append(per)
 
-    print(permi)
-    return render_template('vistaTutor.html', entries=permi)
+            print(permi)
+            return render_template('vistaTutor.html', entries=permi)
+        else:
+            return redirect('/')
+    else:
+        return redirect('/')
 
 @app.route('/tutor/show/<usuario>/<idPermiso>/')
 def permisos_mis_alumnos(usuario, idPermiso):
-    division = session['division']
-    carrera = session['carrera']
-    resultado = bd.get(f'/treecko/{division}/alumno/{carrera}/{usuario}/permisos/{idPermiso}', '')
-    return render_template('show_permisos.html', entries=resultado)
+    if 'username' in session:
+        if session['rol'] == 'alumno':
+            division = session['division']
+            carrera = session['carrera']
+            resultado = bd.get(f'/treecko/{division}/alumno/{carrera}/{usuario}/permisos/{idPermiso}', '')
+            return render_template('show_permisos.html', entries=resultado)
+        else:
+            return redirect('/')
+    else:
+        return redirect('/')
+    
     
 @app.route('/tutor/show/<usuario>/<idPermiso>/<rev>/')
 def aprobar_permiso(usuario, idPermiso, rev):
-    division = session['division']
-    carrera = session['carrera']
-    bd.put(f'/treecko/{division}/alumno/{carrera}/{usuario}/permisos/{idPermiso}', 'aprobacionTutor', rev)
-    return redirect('/permiso/tutor/find')
+    if 'username' in session:
+        if session['rol'] == 'alumno':
+            division = session['division']
+            carrera = session['carrera']
+            bd.put(f'/treecko/{division}/alumno/{carrera}/{usuario}/permisos/{idPermiso}', 'aprobacionTutor', rev)
+            return redirect('/permiso/tutor/find')
+        else:
+            return redirect('/')
+    else:
+        return redirect('/')
+    
     
 @app.route('/director/find')
 def director_ver_permisos():
-    division = session['division']
-    permi = []
-    carrera = bd.get(f'/treecko/{division}/alumno', '')
-    for carrera in carrera:
-        alumnos = bd.get(f'/treecko/{division}/alumno/{carrera}', '')
-        for alumnos in alumnos:
-            permisos = bd.get(f'/treecko/{division}/alumno/{carrera}/{alumnos}/permisos', '')
-            for permisos in permisos:
-                per = bd.get(f'/treecko/{division}/alumno/{carrera}/{alumnos}/permisos/{permisos}', '')
-                if per != "nada":
-                    aprobacion = bd.get(f'/treecko/{division}/alumno/{carrera}/{alumnos}/permisos/{permisos}/aprobacionTutor', '')
-                    if aprobacion == 'Revisado':                 
-                        permi.append(per)
-    # return permi
-    return render_template('vistaDirector.html', entries=permi)
+    if 'username' in session:
+        if session['rol'] == 'alumno':
+            division = session['division']
+            permi = []
+            carrera = bd.get(f'/treecko/{division}/alumno', '')
+            for carrera in carrera:
+                alumnos = bd.get(f'/treecko/{division}/alumno/{carrera}', '')
+                for alumnos in alumnos:
+                    permisos = bd.get(f'/treecko/{division}/alumno/{carrera}/{alumnos}/permisos', '')
+                    for permisos in permisos:
+                        per = bd.get(f'/treecko/{division}/alumno/{carrera}/{alumnos}/permisos/{permisos}', '')
+                        if per != "nada":
+                            aprobacion = bd.get(f'/treecko/{division}/alumno/{carrera}/{alumnos}/permisos/{permisos}/aprobacionTutor', '')
+                            if aprobacion == 'Revisado':                 
+                                permi.append(per)
+            # return permi
+            return render_template('vistaDirector.html', entries=permi)
+        else:
+            return redirect('/')
+    else:
+        return redirect('/')
 
 
 @app.route('/director/show/<carrera>/<usuario>/<idPermiso>/<rev>/')
 def liberar_permiso(carrera, usuario, idPermiso, rev):
+    if 'username' in session:
+        if session['rol'] == 'alumno':
+            division = session['division']
+            # carrera = session['carrera']
+            bd.put(f'/treecko/{division}/alumno/{carrera}/{usuario}/permisos/{idPermiso}', 'aprobacionDirector', rev)
+            return redirect('/permiso/director/find')
+        else:
+            return redirect('/')
+    else:
+        return redirect('/')
+    
+
+
+@app.get('/findRep')
+def alumno_permiso_find():
+    
+    registro = []
     division = session['division']
-    # carrera = session['carrera']
-    bd.put(f'/treecko/{division}/alumno/{carrera}/{usuario}/permisos/{idPermiso}', 'aprobacionDirector', rev)
-    return redirect('/permiso/director/find')
-
-
+    carrera = session['carrera']
+    usuario = session['username']
+    permiso = bd.get(f'/treecko/{division}/alumno/{carrera}/{usuario}/permisos', '')
+    
+    for permiso in permiso:
+        permi = bd.get(f'/treecko/{division}/alumno/{carrera}/{usuario}/permisos/{permiso}', '')
+        if permi != 'nada':
+            registro.append(permi) 
+        # registro.append() 
+    
+    # registro = []
+    # permiso = bd.get(f'/treecko/tic/alumno/Desarrollo%20de%20software/crispapu/permisos', '')
+    
+    # for permiso in permiso:
+    #     permi = bd.get(f'/treecko/tic/alumno/Desarrollo%20de%20software/crispapu/permisos/{permiso}', '')
+        print(permi)
+        
+    return jsonify({"datos": registro})

@@ -11,14 +11,21 @@ bd = firebase.FirebaseApplication(
 
 @app.get('/find')
 def alumno_find():
-    alumno = bd.get('/treecko/tic/alumno', '')
-    registro = []
-    for alumno in alumno:
-        al = bd.get(f'/treecko/tic/alumno/{alumno}', '')
-        for al in al:
-            registro.append(bd.get(f'/treecko/tic/alumno/{alumno}/{al}', ''))
-    print(registro)
-    return render_template('find_alumno.html', entries=registro)
+    if 'username' in session:
+        if session['rol'] == 'administrador':
+            alumno = bd.get('/treecko/tic/alumno', '')
+            registro = []
+            for alumno in alumno:
+                al = bd.get(f'/treecko/tic/alumno/{alumno}', '')
+                for al in al:
+                    registro.append(bd.get(f'/treecko/tic/alumno/{alumno}/{al}', ''))
+            print(registro)
+            return render_template('find_alumno.html', entries=registro)
+        else:
+            return redirect('/')
+    else:
+        return redirect('/')
+        
 
 
 @app.route("/register", methods=['POST'])
@@ -61,7 +68,7 @@ def alumno():
 @app.get('/actualizar/<carrera>/<id>/')
 def actualizar_alumno(carrera, id):
     if 'username' in session:
-        if session['rol'] == 'alumno':
+        if session['rol'] == 'administrador':
             datos = bd.get(f'/treecko/tic/alumno/{carrera}/{id}', '')
             print(datos)
             return render_template('update_alumno.html', entry=datos)
@@ -74,7 +81,7 @@ def actualizar_alumno(carrera, id):
 @app.route('/delete/<carrera>/<id>/')
 def alumno_delete(carrera, id):
     if 'username' in session:
-        if session['rol'] == 'alumno':
+        if session['rol'] == 'administrador':
             print(id)
             bd.delete(f'/treecko/tic/alumno/{carrera}', id)
             return redirect('/alumno/find')
@@ -82,3 +89,4 @@ def alumno_delete(carrera, id):
             return redirect('/')
     else:
         return redirect('/')
+
