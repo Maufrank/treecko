@@ -1,17 +1,25 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="../static/dist/css/bootstrap.min.css"> -->
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/bootstrap.min.css')}}"> -->
+    {% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='datatables/datatables.js') }}"></link> 
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='dist/js/bootstrap.bundle.min.js') }}"></link>  -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
+
+
+    {% endblock %}
+
     {% block titulo %}
 
       {% endblock %}
+
 
 </head>
 
@@ -38,16 +46,142 @@
         </div>
     </nav>
 
-    {% block content %}
 
-      {% endblock %}
+    <title>Document</title>
+    {% block contenido %}
+    {% endblock %}
+</head>
+
+
+
+<body>
+
+  <!-- Remove the container if you want to extend the Footer to full width. -->
+<div class=" my-5">
+
+  <footer class="text-center text-lg-start text-white" style="background-color: rgba(55, 55, 55, 0.961)">
+    <!-- Grid container -->
+    <div class="container p-4">
+      <div><H1>Treecko</H1></div>
+      <!--Grid row-->
+      <div class="row mt-4">
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Contactanos</h5>
+
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a href="#!" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i>treecko@hotmail.com</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i>Instagram</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white"><i class="fas fa-user-edit fa-fw fa-sm me-2"></i>Facebook</a>
+            </li>
+          </ul>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Soporte tecnico</h5>
+
+          <ul class="list-unstyled">
+            <li>
+              <a href="#!" class="text-white"><i class="fas fa-shipping-fast fa-fw fa-sm me-2"></i>919 173 15 17</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white"><i class="fas fa-backspace fa-fw fa-sm me-2"></i>919 133 39 85</a>
+            </li>
+          </ul>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Dirección</h5>
+
+          <ul class="list-unstyled">
+            <li>
+              <a href="#!" class="text-white">Calle central sur S/N Barrio Guadalupe, Ocosingo, Chiapas</a>
+            </li>
+            
+          </ul>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Creditos</h5>
+
+          <ul class="list-unstyled">
+            <li>
+              <a href="#!" class="text-white"><i class="fas fa-at fa-fw fa-sm me-2"></i>Sergio Amaury Montiel Torres</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white"><i class="fas fa-shipping-fast fa-fw fa-sm me-2"></i>Andy Garcia Gonzalez</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white"><i class="fas fa-envelope fa-fw fa-sm me-2"></i>Jenner Alexander Gomes Hernandez</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white"><i class="fas fa-envelope fa-fw fa-sm me-2"></i>Bernal Gamboa Barragan</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white"><i class="fas fa-envelope fa-fw fa-sm me-2"></i>Chino Mendez Jimenez</a>
+            </li>
+          </ul>
+        </div>
+        <!--Grid column-->
+      </div>
+      <!--Grid row-->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(62, 62, 62, 0.2)">
+      © 2023 Copyright:
+      <a class="text-white" href="https://mdbootstrap.com/">Treecko.com</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+
+</div>
+
+
+    {% block scripts %}
+    <script src="{{ url_for('static', filename='dist/js/bootstrap.bundle.min.js') }}"></script> 
+    <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='datatables/datatables.js') }}"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="{{ url_for('static', filename='datatables/Buttons-1.5.6/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='datatables/JSZip-2.5.0/jszip.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='datatables/pdfmake-0.1.36/pdfmake.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='datatables/pdfmake-0.1.36/vfs_fonts.js') }}"></script>
+    <script src="{{ url_for('static', filename='datatables/Buttons-1.5.6/js/buttons.html5.min.js') }}"></script>
+    <script src="../static/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+
+
+    {% endblock %}
+
+
+
+    
+
 
 
 </body>
-<!-- <script src="../static/dist/js/bootstrap.bundle.min.js"></script> -->
-<!-- <link rel="stylesheet" href="{{ url_for('static', filename='dist/js/bootstrap.bundle.min.js')}}"> -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
-<!-- <script src="{{url_for('static', filename='script/busqueda.js')}}"></script> -->
-<!-- <script src="../static/scripts/busqueda.js"></script> -->
+
 
 </html>

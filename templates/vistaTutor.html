@@ -1,44 +1,29 @@
 {% extends 'base/header_tutor.html' %}
+
+
 <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/bootstrap.min.css')}}">
 
-{% block content %}
+{% block titulo %}
+<title>Permisos Alumnos</title>
+      {% endblock %}
+
+{% block contenido %}
     <!-- titulo -->
     <div class="container-fluid my-4 d-flex justify-content-center">
         <h2>Permisos de Alumnos</h2>
     </div>
 
-    <div>
-        <form action="/tutor/find/filter" class="row g-3 px-5 py-3 bg-light rounded" method="">
-            <div class="col-md-3 mx-5">
-                <label for="" class="form-label">Filtrar por:</label>
-                <select id="" class="form-select" name="inputFiltro">
-                    <option selected value="SF">Sin filtro</option>
-                    <option value="Division">Division</option>
-                    <option value="Carrera">Carrera</option>
-
-                </select>
-            </div>
-
-            <div class="col-md-3 mx-5" id='filtrar'>
-
-            </div>
-            <div class="col-md-2 mx-5" id="botonB">
-
-            </div>
-        </form>
-    </div>
 
 
     <!-- Formulario de registro de tutor -->
-    <div class="container-fluid my-4 px-4 ">
-        <table class="table px-5" >
+    <div class="container my-4 px-4 ">
+        <table class="table px-5" id="tablaPermisos">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">Usuario</th>
                     <th scope="col">Motivo</th>
-                    <th scope="col">Descripcion</th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Estado</th>
+                    <th scope="col">Vista tutor</th>
+                    <th scope="col">Vista director</th>
                     <th scope="col">Ver Permisos</th>
                 </tr>
             </thead>
@@ -81,4 +66,77 @@
     </div>
 
     {% endblock %}
+
+
+{% block scripts %}
+  {{ super() }}
+    <script>
+      $(document).ready(function() {
+        var buttonCommon = {
+            exportOptions: {
+                format: {
+                    body: function ( data, row, column, node ) {
+                        // Strip $ from salary column to make it numeric
+                        return column === 5 ?
+                            data.replace( /[$,]/g, '' ) :
+                            data;
+                    }
+                }
+            }
+        };
+
+
+        $(function(){
+
+          $.ajax({
+            url: '/permiso/tutor/misalumnos',
+            type:"GET",
+            success: function(response){
+              console.log("hola->",response)
+              var hola = "hola como estas"
+              $('#tablaPermisos').DataTable({
+                pageLenght:10,
+                "data":response["datos"],
+                "columns":[
+                  {"data": "usuario"},
+                  {"data":"motivo"},
+                  {"data":"aprobacionTutor"},
+                  {"data":"aprobacionDirector"},
+                  {"data":"permiso"}
+                  
+                ],
+
+                dom: 'Bfrtip',
+                buttons: [
+                    $.extend( true, {}, buttonCommon, {
+                        extend: 'copyHtml5'
+                    } ),
+                    $.extend( true, {}, buttonCommon, {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                          columns: [0, 1, 2, 3]
+                        }
+                    } ),
+                    $.extend( true, {}, buttonCommon, {
+                        extend: 'pdfHtml5',
+                        title: 'Permisos de mis tutorados',
+                        exportOptions: {
+                          columns: [0, 1, 2, 3]
+                        }
+                        
+                    } )
+                ]
+
+              })
+            }
+          });
+        });
+
+
+
+      })
+    </script>
+
+  {% endblock %}
+
 <link rel="stylesheet" href="{{ url_for('static', filename='dist/js/bootstrap.bundle.min.js')}}">

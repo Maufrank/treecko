@@ -1,90 +1,150 @@
-{% extends 'base/header_tutor.html' %}
-<link rel="stylesheet" href="{{ url_for('static', filename='dist/css/bootstrap.min.css')}}">
+{% extends 'base/header_director.html' %}
 
-{% block content %}
-    <!-- titulo -->
-    <div class="container-fluid my-4 d-flex justify-content-center">
-        <h2>Permisos de Alumnos</h2>
-    </div>
+{% block titulo %}
+<title>Permisos Alumnos</title>
+      {% endblock %}
 
-    <div>
-        <form action="/tutor/find/filter" class="row g-3 px-5 py-3 bg-light rounded" method="">
-            <div class="col-md-3 mx-5">
-                <label for="" class="form-label">Filtrar por:</label>
-                <select id="" class="form-select" name="inputFiltro">
-                    <option selected value="SF">Sin filtro</option>
-                    <option value="Division">Division</option>
-                    <option value="Carrera">Carrera</option>
+{% block contenido %}
+<!DOCTYPE html>
+<html lang="en">
 
-                </select>
-            </div>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../static/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
 
-            <div class="col-md-3 mx-5" id='filtrar'>
+</head>
 
-            </div>
-            <div class="col-md-2 mx-5" id="botonB">
+<body>
+  
 
-            </div>
-        </form>
-    </div>
+  <!-- titulo -->
+  <div class="container-fluid my-4 d-flex justify-content-center">
+    <h2>Permisos</h2>
+  </div>
 
 
-    <!-- Formulario de registro de tutor -->
-    <div class="container-fluid my-4 px-4 ">
-        <table class="table px-5" >
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Motivo</th>
-                    <th scope="col">Descripcion</th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Vista del tutor</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col">Ver Permisos</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for entry in entries %}
-                <tr>
-                    <th scope="row">1</th>
-                    <td>{{ entry.motivo }}</td>
-                    <td>{{ entry.descripcion}}</td>
-                    <td>{{ entry.fecha}}</td>
-                    <td>{{ entry.aprobacionTutor }}</td>
-                    <td>{{ entry.aprobacionDirector }}</td>
-                    <td><button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#eliminar">Ver permiso</button></td>
-                    <div class="modal fade" id="eliminar" tabindex="-1" aria-labelledby="eliminarLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="eliminarLabel">Permiso de {{entry.usuario}}</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    
-                          </div>
-                          <div class="modal-body">
-                            <P>Motivo: {{ entry.motivo }}</P><br>
-                            <p>Descripcion: {{ entry.descripcion }}</p><br>
-                            <p>Fecha solicitada: {{ entry.fecha }}</p><br>
-                            <p>Carrera: {{ entry.carrera }}</p><br>
-                            <p>Vista del tutor: {{ entry.aprobacionTutor }}</p><br>
+  <!-- Formulario de registro de tutor -->
+  <div class="container my-4 " >
+    <table class="table px-5" id="tablaPermisos">
+      <thead>
+        <tr>
+          <!-- <th scope="col">#</th> -->
+          <th scope="col">Usuario</th>
+          <th scope="col">Fecha de Solicitud</th>
+          <th scope="col">Aprobacion Tutor</th>
+          <th scope="col">Aprobacion Director</th>
+          <th scope="col">Ver</th>
+
+          <!-- <th scope="col">Ver permiso</th> -->
 
 
-                            <button type="submit" class="btn btn-success"  onclick="location.href=`/permiso/descargar/comprobante/{{entry.comprobante}}/`">Descargar comprobante</button>
+        </tr>
+      </thead>
+      <!-- <tbody>
+        {% for entry in entries %}
+        <tr>
+          <th scope="row">1</th>
+          <td>{{ entry.motivo }}</td>
+          <td>{{ entry.fecha }}</td>
+          <td>{{ entry.aprobacionTutor }}</td>
+          <td>{{ entry.aprobacionDirector }}</td>
+          <td><button type="submit" class="btn btn-success" onclick="location.href=`/permiso/ver/{{entry.fecha}}/`">Ver permiso</button></td>
 
-                            
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-warning" data-bs-dismiss="modal"  onclick="location.href=`/permiso/director/show/{{entry.carrera}}/{{entry.usuario}}/{{entry.fecha}}/Rechazado`">Rechazar</button>
-                            <button type="submit" class="btn btn-success"  onclick="location.href=`/permiso/director/show/{{entry.carrera}}/{{entry.usuario}}/{{entry.fecha}}/Aprobado`">Dar visto bueno</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
 
-    {% endblock %}
-<link rel="stylesheet" href="{{ url_for('static', filename='dist/js/bootstrap.bundle.min.js')}}">
+        </tr>
+        {% endfor %}
+      </tbody> -->
+    </table>
+  </div>
+{% endblock %}
+
+
+  {% block scripts %}
+  {{ super() }}
+    <script>
+      $(document).ready(function() {
+        var buttonCommon = {
+            exportOptions: {
+                format: {
+                    body: function ( data, row, column, node ) {
+                        // Strip $ from salary column to make it numeric
+                        return column === 5 ?
+                            data.replace( /[$,]/g, '' ) :
+                            data;
+                    }
+                }
+            }
+        };
+
+
+        $(function(){
+
+          $.ajax({
+            url: '/permiso/director/find',
+            type:"GET",
+            success: function(response){
+              console.log("hola->",response)
+              $('#tablaPermisos').DataTable({
+                pageLenght:10,
+                "data":response["datos"],
+                "columns":[
+                  {"data":"usuario"},
+                  {"data":"fecha"},
+                  {"data":"aprobacionTutor"},
+                  {"data":"aprobacionDirector"},
+                  {"data":"aprobar"}
+                ],
+
+                dom: 'Bfrtip',
+                buttons: [
+                    $.extend( true, {}, buttonCommon, {
+                        extend: 'copyHtml5'
+                    } ),
+                    $.extend( true, {}, buttonCommon, {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                          columns: [0, 1, 2, 3]
+                        }
+                    } ),
+                    $.extend( true, {}, buttonCommon, {
+                        extend: 'pdfHtml5',
+                        title: 'Mis permisos',
+                        exportOptions: {
+                          columns: [0, 1, 2, 3]
+                        }
+                        
+                    } )
+                ]
+
+                
+              })
+            }
+          })
+        });
+      });
+
+
+        
+
+
+    </script>
+
+  {% endblock %}
+
+
+
+</body>
+<script src="../static/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+</html>

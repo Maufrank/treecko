@@ -8,8 +8,11 @@
 
 {% block content %}
       <!-- Formulario de registro de tutor -->
+
       <div class="container-fluid my-4 ">
       <form id="mydirec" class="row g-3 px-5 py-3 bg-light rounded" action="/director/add" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
         <div class="col-md-6">
           <label for="inputNombre" class="form-label">Nombre</label>
           <input type="text" class="form-control " id="inputNombre" name="inputNombre">
@@ -37,23 +40,12 @@
           
 
           <div class="col-md-4">
-            <label for="inputPeriodo" class="form-label">Periodo inicial</label>
-            <select id="inputPeriodo" name="inputPeriodo" class="form-select">
-              <option selected>Seleccionar periodo</option>
-              <option>2023-A</option>
-              <option>2023-B</option>
-              <option>2023-C</option>
-              
-            </select>
-          </div>
-
-          <div class="col-md-4">
-            <label for="inputPeriodof" class="form-label">Periodo Final</label>
-            <select id="inputPeriodof" name="inputPeriodof" class="form-select">
-              <option selected>Seleccionar periodo</option>
-              <option>2023 A</option>
-              <option>2023 B</option>
-              <option>2023 C</option>
+            <label for="inputDivision" class="form-label">Division</label>
+            <select id="inputDivision" name="inputDivision" class="form-select">
+              <option selected>Seleccionar Division</option>
+              <option>tic</option>
+              <option>agro</option>
+              <option>construccion</option>
               
             </select>
           </div>
@@ -63,5 +55,5 @@
         </div>
       </form>
       </div>
-<script src="../static/scripts/validatefrom_adddirec.js"></script>
+<!-- <script src="../static/scripts/validatefrom_adddirec.js"></script> -->
       {% endblock %}

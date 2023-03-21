@@ -9,38 +9,56 @@ bd = firebase.FirebaseApplication("https://treecko-c8c52-default-rtdb.firebaseio
 @app.get('/find')
 def director_find():
     if 'username' in session:
-        if session['rol'] == 'administrador':
-            director = bd.get('/treecko/tic/director/', '')
+        if session['rol'] == 'alumno':
+            directores = bd.get('/treecko/tic/director/', '')
             registro = []
+            # return directores
+            for director in directores:
+                dire = directores[director]
+                registro.append(dire)
+            return registro
+            print(director)
             for director in director:
                 registro.append(bd.get(f'/treecko/tic/director/{director}', '')) 
             print(registro)
-            return render_template('find_director.html', entries=registro)
+            # return render_template('find_director.html', entries=registro)
+            return registro
         else:
             return redirect('/')
     else:
         return redirect('/')
-    
+
+
+
+
 @app.route('/add', methods=['POST'])
 def director_add():
     if 'username' in session:
-        if session['rol'] == 'administrador':
+        if session['rol'] == 'alumno':
             registro = {
                 'nombre': request.form['inputNombre'],
                 'apellidos': request.form['inputApellidos'],
                 'correo': request.form['inputCorreo'],
                 'usuario': request.form['inputUsername'],
                 'contraseña': request.form['inputPassword'],
-                'periodo': [{
-                    'inicio': request.form['inputPeriodo'],
-                    'final': request.form['inputPeriodof']
-                }]
+                "division": request.form['inputDivision'],
+                
             }
+            
+            user = {
+                "password": request.form['inputPassword'],
+                "rol": 'director',
+                "division": request.form['inputDivision'],
+            }
+            division = request.form['inputDivision'];
+            
             usuario= request.form['inputUsername']
             print(registro)
-            resultado = bd.put(f'/treecko/tic/director', usuario ,registro)
+            resultado = bd.put(f'/treecko/{division}/director', usuario ,registro)
             print(resultado)
-            return redirect('/director/find')
+            resultadoUsuario = bd.put(f'/treecko/usuarios', usuario, user)
+            
+            return redirect('/director/consultar')
         else:
             return redirect('/')
     else:

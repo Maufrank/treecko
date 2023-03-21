@@ -15,3 +15,11 @@ def permiso_add():
 @app.route('/alumno/ver')
 def mis_permisos():
     return render_template('find_permiso.html')
+
+@app.route('/tutor/ver')
+def tutor_ver_permisos():
+    return render_template('vistaTutor.html')
+
+@app.route('/director/ver')
+def director_ver_permisos():
+    return render_template('vistaDirector.html')
