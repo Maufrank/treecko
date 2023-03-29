@@ -4,33 +4,24 @@
 <title>Consultar Director</title>
 {% endblock %}
 
-{% block content %}
-
+{% block contenido %}
+<body>
       <!-- titulo -->
       <div class="container-fluid my-4 d-flex justify-content-center">
             <h2>Consultar Directores</h2>
       </div>
 
-      <div class="col-md-4 mx-5">
-        <label for="inputFiltro" class="form-label">Filtrar por:</label>
-        <select id="inputFiltro" class="form-select">
-          <option selected>Sin filtro</option>
-          <option value='Periodo'>Periodo</option>
-          <option value='Division'>Division</option>
-          <option value='Carrera'>Carrera</option>
-          
-        </select>
-      </div>
       
 
       <!-- Formulario de registro de tutor -->
-      <div class="container-fluid my-4 ">
-        <table class="table px-5">
+      <div class="container my-4 ">
+        <table class="table px-5" id="tablaPermisos">
             <thead>
               <tr>
-                <th scope="col">#</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Apellidos</th>
+                <th scope="col">Correo</th>
+
                 <th scope="col">Division</th>
                 <th scope="col">Editar</th>
                 <th scope="col">Eliminar</th>
@@ -41,10 +32,10 @@
             <tbody>
               {% for entry in entries %}
               <tr>
-                <th scope="row">1</th>
+
                 <td>{{entry.nombre}}</td>
                 <td>{{entry.apellidos}}</td>
-                <td>TIC</td>
+                <td>{{entry.apellidos}}</td>
           <td><button type="button" class="btn btn-success" onclick="location.href=`/tutor/actualizar/{{entry.usuario}}/`" >Editar</button></td>
           <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminar">Eliminar</button></td>
           <div class="modal fade" id="eliminar" tabindex="-1" aria-labelledby="eliminarLabel" aria-hidden="true">
@@ -72,7 +63,80 @@
             </tbody>
           </table>
       </div>
-
-
-    
       {% endblock %}
+
+
+
+      {% block scripts %}
+  {{ super() }}
+    <script>
+      $(document).ready(function() {
+        var buttonCommon = {
+            exportOptions: {
+                format: {
+                    body: function ( data, row, column, node ) {
+                        // Strip $ from salary column to make it numeric
+                        return column === 5 ?
+                            data.replace( /[$,]/g, '' ) :
+                            data;
+                    }
+                }
+            }
+        };
+
+
+        $(function(){
+
+          $.ajax({
+            url: '/director/find',
+            type:"GET",
+            success: function(response){
+              console.log("hola->",response)
+              $('#tablaPermisos').DataTable({
+                pageLenght:10,
+                "data":response["datos"],
+                "columns":[
+                  {"data":"nombre"},
+                  {"data":"apellidos"},
+                  {"data":"correo"},
+
+                  {"data":"division"},
+                  {"data":"editar"},
+                  {"data":"eliminar"}
+                ],
+
+                dom: 'Bfrtip',
+                buttons: [
+                    $.extend( true, {}, buttonCommon, {
+                        extend: 'copyHtml5'
+                    } ),
+                    $.extend( true, {}, buttonCommon, {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                          columns: [0, 1, 2, 3]
+                        }
+                    } ),
+                    $.extend( true, {}, buttonCommon, {
+                        extend: 'pdfHtml5',
+                        title: 'Mis permisos',
+                        exportOptions: {
+                          columns: [0, 1, 2, 3]
+                        }
+                        
+                    } )
+                ]
+
+                
+              })
+            }
+          })
+        });
+      });
+
+
+        
+
+
+    </script>
+  </body>
+  {% endblock %}

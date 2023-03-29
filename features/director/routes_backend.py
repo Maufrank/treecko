@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, session
+from flask import Blueprint, render_template, request, redirect, session, jsonify
 # import requests
 from firebase_admin import db
 from firebase import firebase
@@ -15,8 +15,42 @@ def director_find():
             # return directores
             for director in directores:
                 dire = directores[director]
-                registro.append(dire)
-            return registro
+                
+                direc = {
+                    "apellidos": dire["apellidos"],
+                    "contraseña": dire["contraseña"],
+                    "correo": dire["correo"],
+                    "division": dire["division"],
+                    "nombre": dire["nombre"],
+                    "usuario": dire["usuario"],
+                    "editar": f'<button type="button" class="btn btn-success" onclick="location.href=`/tutor/actualizar/{dire["usuario"]}/`" >Editar</button>',
+                    "eliminar": f'''
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminar">Eliminar</button>
+                    <div class="modal fade" id="eliminar" tabindex="-1" aria-labelledby="eliminarLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="eliminarLabel">¿Desea eliminar al director?</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    
+                            </div>
+                            <div class="modal-body">
+                            <P>Si elimina este registro nunca mas podra consultarlo</P>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger"  onclick="location.href=`/director/delete/{dire["usuario"]}/{dire["division"]}/`">Eliminar</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    '''
+                    
+                }
+                direName = dire["apellidos"]
+                registro.append(direc)
+            return jsonify({"datos": registro})
             print(director)
             for director in director:
                 registro.append(bd.get(f'/treecko/tic/director/{director}', '')) 
@@ -76,13 +110,13 @@ def director_update():
     else:
         return redirect('/')
     
-@app.get('/delete/<id>/')
-def director_delete(id):
+@app.route('/delete/<id>/<division>')
+def director_delete_one(id, division):
     if 'username' in session:
-        if session['rol'] == 'administrador':
+        if session['rol'] == 'alumno':
             print(id)
-            bd.delete('/treecko/tic/director', id)
-            return redirect('/director/find')
+            bd.delete(f'/treecko/{division}/director', id)
+            return redirect('/director/consultar')
         else:
             return redirect('/')
     else:

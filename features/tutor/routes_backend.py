@@ -13,7 +13,7 @@ bd = firebase.FirebaseApplication(
 @app.get('/find')
 def tutor_find():
     if 'username' in session:
-        if session['rol'] == 'administrador':
+        if session['rol'] == 'alumno':
             periodo = bd.get('/treecko/periodo', '')
             tutores = bd.get(f'/treecko/tic/tutor/{periodo}', '')
             registro = []
@@ -35,7 +35,7 @@ def tutor_find():
 @app.route('/add', methods=['POST'])
 def tutor_add():
     if 'username' in session:
-        if session['rol'] == 'administrador':
+        if session['rol'] == 'alumno':
             registro = {
                 'nombre': request.form['inputNombre'],
                 'apellidos': request.form['inputApellidos'],

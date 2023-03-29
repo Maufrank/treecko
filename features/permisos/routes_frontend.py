@@ -5,7 +5,7 @@ app = Blueprint('permisos', __name__, url_prefix='/permiso')
 
 @app.get('/consultar')
 def director_find():
-    return render_template('find_permisos.html')
+    return render_template('find_permiso.html')
 
 
 @app.get('/registrar')

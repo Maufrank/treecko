@@ -18,7 +18,7 @@ def add_tutor():
 @app.get('/consultar')
 def get_tutor():
     if 'username' in session:
-        if session['rol'] == 'administrador':
+        if session['rol'] == 'alumno':
             custom_cookie = request.cookies.get('custome_cookie')
             print(custom_cookie)
             return render_template('find_tutor.html')
