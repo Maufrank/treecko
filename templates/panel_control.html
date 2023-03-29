@@ -1,7 +1,7 @@
 {% extends 'base/header_admin.html' %}
 
 {% block titulo %}
-<title>Agregar Alumno</title>
+<title>Panel de control</title>
 {% endblock %}
 
 {% block contenido %}
@@ -29,7 +29,89 @@
     </div>
   </div>
 
+  <div class="card my-4">
+    <div class="card-header bg-success text-white">
+      Restaurar datos
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">¿Desea restaurar datos?</h5>
+      <table class="table px-5" id="tablaRespaldos">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Restaurar</th>
+
+
+          </tr>
+        </thead>
+
+      </table>
+    </div>
+  </div>
+
 </div>
 
 
 {% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+    <script>
+      $(document).ready(function() {
+        var buttonCommon = {
+            exportOptions: {
+                format: {
+                    body: function ( data, row, column, node ) {
+                        // Strip $ from salary column to make it numeric
+                        return column === 5 ?
+                            data.replace( /[$,]/g, '' ) :
+                            data;
+                    }
+                }
+            }
+        };
+
+
+        $(function(){
+
+          $.ajax({
+            url: '/respaldos',
+            type:"GET",
+            success: function(response){
+              console.log("hola->",response)
+              $('#tablaRespaldos').DataTable({
+                pageLenght:10,
+                "data":response["datos"],
+                "columns":[
+                  {"data":"id"},
+                  {"data":"boton"},
+                ],
+
+                
+              })
+            }
+          })
+        });
+      });
+
+
+        
+
+
+    </script>
+
+  {% endblock %}
+
+
+
+</body>
+<script src="../static/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+</html>

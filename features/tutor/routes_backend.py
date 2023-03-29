@@ -15,17 +15,28 @@ def tutor_find():
     if 'username' in session:
         if session['rol'] == 'alumno':
             periodo = bd.get('/treecko/periodo', '')
-            tutores = bd.get(f'/treecko/tic/tutor/{periodo}', '')
+            tutores = bd.get(f'/treecko', '')
             registro = []
-            for tutores in tutores:
-                carrera = bd.get(f'/treecko/tic/tutor/{periodo}/{tutores}', '')
-                # return carrera
-                for carrera in carrera:
-                    # return carrera
-                    registro.append(bd.get(f'/treecko/tic/tutor/{periodo}/{tutores}/{carrera}', '')) 
+            for tutor in tutores:
+                divisiones = tutores[tutor]
+                try:
+                    division = divisiones["tutor"]
+                    for periodo in division:
+                        carreras = division[periodo]
+                        for carrera in carreras:
+                            id = carreras[carrera]
+                            for data in id:
+                    
+                                registro.append(id[data])
+                    
+                except Exception:
+                    print("No hay")
+                    
+               
             print(registro)
             # return registro
-            return render_template('find_tutor.html', entries=registro)
+            # return jsonify({"datos": registro})
+            return render_template("find_tutor.html", entries=registro)
         else:
             return redirect('/')
     else:
