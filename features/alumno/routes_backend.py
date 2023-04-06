@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, json, redirect, session
+from flask import Blueprint, render_template, request, json, redirect, session, jsonify
 # import request
 # from firebase_admin import bd
 from firebase import firebase
@@ -12,15 +12,22 @@ bd = firebase.FirebaseApplication(
 @app.get('/find')
 def alumno_find():
     if 'username' in session:
-        if session['rol'] == 'administrador':
-            alumno = bd.get('/treecko/tic/alumno', '')
+        if session['rol'] == 'alumno':
+            divisiones = bd.get('/treecko', '')
             registro = []
-            for alumno in alumno:
-                al = bd.get(f'/treecko/tic/alumno/{alumno}', '')
-                for al in al:
-                    registro.append(bd.get(f'/treecko/tic/alumno/{alumno}/{al}', ''))
-            print(registro)
+            for division in divisiones:
+                try:
+                    roles = divisiones[division]
+                    carreras = roles["alumno"]
+                    for todaCarrera in carreras:
+                        carrera = carreras[todaCarrera]
+                        for alumno in carrera:
+                            registro.append(carrera[alumno])
+                except Exception:
+                    print("No hay alumno")
+               
             return render_template('find_alumno.html', entries=registro)
+            # return jsonify({"datos": registro})
         else:
             return redirect('/')
     else:

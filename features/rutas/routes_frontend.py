@@ -63,7 +63,7 @@ def restaurar():
     for id in respaldos:
         datos = {
             "id": id,
-            "boton": f'''<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#eliminar">Ver permiso</button>
+            "boton": f'''<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#eliminar">Restaurar</button>
                                     <div class="modal fade" id="eliminar" tabindex="-1" aria-labelledby="eliminarLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
